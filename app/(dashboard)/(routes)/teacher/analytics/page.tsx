@@ -1,15 +1,11 @@
-'use client'
+"use client";
 
-import React from 'react'
+import React from "react";
 
-interface PageProps {
-
-}
+interface PageProps {}
 
 function Page({}: PageProps) {
-    return (
-        <div>analytics</div>
-    )
+  return <div>analytics</div>;
 }
 
 export default Page;
