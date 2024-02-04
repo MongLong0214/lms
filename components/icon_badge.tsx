@@ -2,7 +2,7 @@ import {LucideIcon} from "lucide-react"
 import {cva, type VariantProps} from "class-variance-authority";
 
 import {cn} from "@/lib/utils";
-import
+
 
 const backgroundVariants = cva(
     "rounded-full flex items-center justify-center",
@@ -11,10 +11,6 @@ const backgroundVariants = cva(
             variant:{
                 default: "bg-sky-200/20",
                 success: "bg-emerald-200/20",
-            },
-            iconVariant: {
-                default: "text-sky-700",
-                success: "text-emerald-700",
             },
             size: {
                 default: "p-2",
@@ -55,7 +51,7 @@ interface IconBadgeProps extends BackgroundVariantProps, IconVariantProps {
     icon: LucideIcon;
 }
 
-export const IconBadge = ({
+export const Icon_badge = ({
     icon: Icon,
     variant,
     size,
@@ -68,5 +64,4 @@ export const IconBadge = ({
             <Icon className={cn(iconVariants({variant, size}))} />
         </div>
     )
-
 }

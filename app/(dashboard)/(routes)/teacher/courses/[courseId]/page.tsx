@@ -2,6 +2,11 @@ import React from "react";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { Icon_badge } from "@/components/icon_badge";
+import { LayoutDashboardIcon } from "lucide-react";
+import TitleForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/title_form";
+import DescriptionForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/description_form";
+import ImageForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/image_form";
 const CourseIdPage = async ({
   params,
 }: {
@@ -50,8 +55,12 @@ const CourseIdPage = async ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
         <div>
           <div className="flex items-center gap-x-2">
+            <Icon_badge icon={LayoutDashboardIcon} />
             <h2 className="text-xl">Customize your course</h2>
           </div>
+          <TitleForm initialData={course} courseId={course.id} />
+          <DescriptionForm initialData={course} courseId={course.id} />
+          <ImageForm initialData={course} courseId={course.id} />
         </div>
       </div>
     </div>
