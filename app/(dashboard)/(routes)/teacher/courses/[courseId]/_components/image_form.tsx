@@ -15,10 +15,11 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Pencil, PlusCircle } from "lucide-react";
+import {ImageIcon, Pencil, PlusCircle} from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Course } from "@prisma/client";
+import Image from "next/image";
 
 interface ImageFormProps {
   initialData: Course;
@@ -38,6 +39,13 @@ function ImageForm({ initialData, courseId }: ImageFormProps) {
   };
 
   const router = useRouter();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      imageUrl: initialData?.imageUrl || "",
+    },
+  });
+
   const { isSubmitting, isValid } = form.formState;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
@@ -70,7 +78,22 @@ function ImageForm({ initialData, courseId }: ImageFormProps) {
           )}
         </Button>
       </div>
-      {!isEditing && <p className="text-sm mt-2">{initialData.title}</p>}
+      {!isEditing && (
+          !initialData.imageUrl ?(
+              <div className='flex items-center justify-center h-60 bg-slate-200 rounded-md'>
+                <ImageIcon className="h-10 w-10 text-slate-500" />
+              </div>
+          ) : (
+              <div className='relative aspect-video mt-2'>
+                <Image
+                 alt='Upload'
+                 fill
+                 className='object-cover rounded-md'
+                 src={initialData.imageUrl}
+                />
+              </div>
+          )
+      )}
       {isEditing && (
         <Form {...form}>
           <form
