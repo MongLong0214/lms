@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Course } from "@prisma/client";
 import Image from "next/image";
+import FileUpload from "@/components/file_upload";
 
 interface ImageFormProps {
   initialData: Course;
@@ -95,34 +96,17 @@ function ImageForm({ initialData, courseId }: ImageFormProps) {
           )
       )}
       {isEditing && (
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 mt-8"
-          >
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      disabled={isSubmitting}
-                      placeholder={"e.g. 'advanced web development'"}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex items-center gap-x-2">
-              <Button type="submit" disabled={!isValid || isSubmitting}>
-                Save
-              </Button>
+            <div>
+              <FileUpload
+              endpoint='courseImage'
+              onChange={(url) => {
+                if(url) form.setValue('imageUrl', url)
+              }}
+              />
+              <div className='text-xm text-muted-foreground mt-4'>
+                16:9 aspect ratio recommended
+              </div>
             </div>
-          </form>
-        </Form>
       )}
     </div>
   );
