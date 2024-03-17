@@ -1,9 +1,10 @@
 import { authMiddleware } from "@clerk/nextjs";
 
-// This example protects all routes including api/trpc routes
-// Please edit this to allow other routes to be public as needed.
-// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your middleware
-export default authMiddleware({});
+// 아래 예시에서는 /api/uploadthing 경로를 publicRoutes 배열에 추가하여
+// 이 경로를 공개적으로 접근 가능하게 만듭니다.
+export default authMiddleware({
+  publicRoutes: ["/api/uploadthing"],
+});
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
